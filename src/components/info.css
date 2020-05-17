@@ -1,0 +1,217 @@
+
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+
+}
+
+.info_labels {
+    font-weight: 900;
+    font-size: large;
+    color: white;
+    text-transform: capitalize;
+
+
+}
+.medname_container{
+    width: 600px;
+    height: 200px;
+    margin: auto;
+    background:#5f27cd ;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    transition: all 1s;
+}
+.medname_container:focus-within{
+  height: 400px;
+  width: 700px;
+
+}
+
+
+.dose_container{
+  width: 600px;
+  height: 150px;
+  margin: auto;
+  background: #fcd02c;
+  background-size: cover;
+  text-align: center;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  transition: all 1s;
+}
+.dose_container:focus-within, .dose_container:hover{
+  height: 200px;
+  width: 700px;
+}
+
+.indication_container{
+  width: 600px;
+  height: 400px;
+  margin: auto;
+  background: #3eb650;
+  background-size: cover;
+  text-align: center;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  transition: all 1s;
+}
+.indication_container:focus-within, .indication_container:hover{
+  height: 440px;
+  width: 700px;
+}
+
+.comment_container{
+  width: 600px;
+  margin: auto;
+  text-align: center;
+  transition: all 1s;
+
+
+
+
+}
+
+.comment_container:focus-within{
+  width: 700px;
+
+}
+
+.contraindication_container{
+  width: 600px;
+  height: 400px;
+  margin: auto;
+  background: #e12b38;
+  background-size: cover;
+  text-align: center;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  transition: all 1s;
+}
+.contraindication_container:focus-within, .contraindication_container:hover{
+  height: 440px;
+  width: 700px;
+}
+
+
+
+
+
+
+
+
+.medname_input:focus , .dose_input:focus , .indication_input:focus, .contraindication_input:focus{
+  font-size:16px;
+  width: 60%;
+  outline: none;
+}
+
+.dose_input , .indication_input, .medname_input ,.contraindication_input{
+  width: 40%;
+  border-radius: 30px;
+  text-align: center;
+  color:white;
+  border-color: white;
+  border: 5px solid;
+  background-color:rgba(0, 0, 0, 0);
+  transition: width 1s;
+  font-weight: bold;
+}
+
+.commentbox:focus{
+  outline: none;
+  font-size: 16px;
+
+}
+
+.commentbox{
+  width: 60%;
+  border-radius: 30px;
+  text-align: center;
+  color:white;
+  border: 5px solid;
+  border-color: #5f27cd;
+  background-color:rgba(0, 0, 0, 0);
+  transition: width 1s;
+  font-weight: bold;
+}
+
+
+.info_name_suggestions , .info_indication_suggestions{
+  list-style: none;
+  margin: auto;
+  margin-top: 10px;
+  max-height: 200px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  padding-left: 0;
+  width: 60%;
+  opacity: 100%;
+  box-shadow: 5px 5px ;
+}
+
+
+.info_name_suggestions li , .info_indication_suggestions li{
+  position: relative;
+  opacity: 100%;
+  font-weight: bold;
+  color: white;
+  border-radius: 20px;
+  margin-top: 1px;
+}
+
+.info_name_active,
+.info_name_suggestions li:hover,
+.info_indication_active,.info_indication_suggestions li:hover {
+  background-color: #008f68;
+  color: #fae042;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+
+
+.info_indication_list , .info_contraindication_list{
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  width: 60%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.info_indication_list  li , .info_contraindication_list li{
+  background-color: #5f27cd;
+  margin-left: 4px;
+  width: max-content;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 700;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  color: white;
+
+
+}
+
+.quora_cross , .quora_plus{
+  color:black;
+  text-emphasis: bold;
+  cursor: pointer;
+  margin-left: 2px;
+  margin-right: 2px;
+
+
+
+}
+
+
