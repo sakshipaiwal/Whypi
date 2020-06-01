@@ -3,7 +3,7 @@ import './info.css';
 import AutoSuggest from './Autosuggest';
 import axios from 'axios';
 
-// https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
+// https://stackoverflow.com/questions/32553158/detect-click-outside-react-component handle clicks
 
 /*
     This is a module used to render Quora tomplate (lol).
@@ -122,7 +122,22 @@ export default class Quoratemplate extends React.Component{
         this.onKeyDown = this.onKeyDown.bind(this);
         this.onPressPlus = this.onPressPlus.bind(this);
         this.onSubmitComment = this.onSubmitComment.bind(this);
+        this.wrapperRef = React.createRef();
     
+    }
+    componentDidMount() {
+        // Adding event  listener for click, so collapse the suggestions bar....
+        document.addEventListener('mousedown', this.handleClickOutside);
+    }
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
+    handleClickOutside = e => {
+        // If the click is outside the component , we want to collapse the suggestion bar
+        if(this.wrapperRef && !this.wrapperRef.current.contains(e.target)){
+            this.setState({suggestions : [] , showSuggestions : false});
+        }
     }
 
     deleteItem(item){
@@ -241,7 +256,7 @@ export default class Quoratemplate extends React.Component{
 
     render(){
         return (
-        <div className = {this.props.containerClass}>
+        <div className = {this.props.containerClass} ref = {this.wrapperRef} onClick = {this.handleClickOutside}>
             
             {this.state.showCommentBox === false && 
             <>

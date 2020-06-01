@@ -1,8 +1,16 @@
-# Sakshi
+Main page banao
+
+# Sakshi THE GREAT
+
+1. Make the website look beautiful
+2. Work on the side bar
+3. Make our website responsive [IMPORTANT]
 
 
 
 
+# Rushi THE CRYBABY
 
-# Rushi
-
+1) Handle clicks , to destroy suggestions
+2) Auto suggest support for indications/ContraIndications/rel
+3) Smooth Scroll
