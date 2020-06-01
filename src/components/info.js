@@ -1,156 +1,140 @@
 import React from 'react';
-import './info.css'
-import axios from 'axios';
+import './info.css';
 import scrollToComponent from 'react-scroll-to-component';
-import QuoraTemplate from './Quota_tomplate'
-
-class RenderList extends React.Component{
-    render(){
-        return(
-            <ul className = "info_name_suggestions">
-                {this.props.names.map((name, index) => {
-                    let classname = "info_name_list_ele";
-                    if(index === this.props.activeindex){
-                       classname += " info_name_active" 
-                    }
-                    return (
-                        
-                        <li className = {classname} key = {name}>
-                            {name}
-                        </li>
-                    )
-                })
-                }
-            </ul>
-        )
-    }
-}
+import QuoraTemplate from './Quota_tomplate';
+import Dosage from "./Dosage";
 
 
 
-
-
-
-
-
-
-
-export default class Medname extends React.Component{
+export default class Form extends React.Component{
     constructor(props){
         super(props);
-        this.state = {medname : "", NameactiveSuggestion : 0, nameSuggestions : [] , nameShowSuggestions : false,
-            indications : [] , contraIndication : [] 
+        this.state = {medNames : [],
+            indications : [] , contraIndications : [] , relativeContra : [] , doses : ["","","","",""] , day_dist : ["","","","",""],
+            drugInteraction : [] ,
         };
 
         this.dosageRef = React.createRef();
-        this.OnNameChange = this.OnNameChange.bind(this);
-        this.onNameKeyDown = this.onNameKeyDown.bind(this);
+        this.addMedname = this.addMedname.bind(this);
+        this.removeMedname = this.removeMedname.bind(this);
+        this.addMednameComment = this.addMednameComment.bind(this);
 
         this.addContraindication = this.addContraindication.bind(this);
         this.removeContraindication = this.removeContraindication.bind(this);
         this.addIndication = this.addIndication.bind(this);
         this.removeIndication = this.removeIndication.bind(this);
+        this.addContraindicationComment = this.addContraindicationComment.bind(this);
+        this.addIndicationComment = this.addIndicationComment.bind(this);
+        this.addRelativecontraComment = this.addRelativecontraComment.bind(this);
+        this.addRelativecontra = this.addRelativecontra.bind(this);
+        this.removeRelativecontra = this.removeRelativecontra.bind(this);
+        this.addDruginteraction = this.addDruginteraction.bind(this);
+        this.removeDruginteraction = this.removeDruginteraction.bind(this);
+        this.addDruginteractionComment = this.addDruginteractionComment.bind(this);
+        this.onChangeDose = this.onChangeDose.bind(this);
+        this.onChangeDist = this.onChangeDist.bind(this);
     }
 
 
     addContraindication(contraIndication){
-        this.setState({contraIndication : this.state.contraIndication.concat(contraIndication.toLowerCase())});
+        this.setState({contraIndications : this.state.contraIndications.concat({value: contraIndication.toLowerCase() , comment : ""})});
     }
-    removeContraindication(contraindication){
-        this.setState({contraIndication : this.state.contraIndication.filter(oneItem => oneItem !== contraindication)});
+    removeContraindication(contraindication){ 
+        this.setState({contraIndications : this.state.contraIndications.filter(oneItem => oneItem.value !== contraindication)});
     }
+
+    addRelativecontra(relativecontra){
+        this.setState({relativeContra : this.state.relativeContra.concat({value: relativecontra.toLowerCase() , comment : ""})});
+    }
+    removeRelativecontra(relativecontra){ 
+        this.setState({relativeContra : this.state.relativeContra.filter(oneItem => oneItem.value !== relativecontra)});
+    }
+
 
     addIndication(indication){
-        this.setState({indications : this.state.indications.concat(indication.toLowerCase()),
-        });
+        this.setState({indications : this.state.indications.concat({value:indication.toLowerCase() , comment : ""})});
     }
     removeIndication(indication){
-        this.setState({indications : this.state.indications.filter(oneItem => oneItem !== indication)});
+        this.setState({indications : this.state.indications.filter(oneItem => oneItem.value !== indication)});
     }
-    addContraindicationComment(contraindication){
-        this.setState()
+   
+    addDruginteraction(interaction){
+        this.setState({drugInteraction : this.state.drugInteraction.concat({value:interaction.toLowerCase() , comment : ""})});
+    }
+    removeDruginteraction(interaction){
+        this.setState({drugInteraction : this.state.drugInteraction.filter(oneItem => oneItem.value !== interaction)});
+    }
+    addMedname(name){
+        this.setState({medNames : this.state.medNames.concat({value:name.toLowerCase() , comment : ""})});
+    }
+    removeMedname(name){
+        this.setState({medNames : this.state.medNames.filter(oneItem => oneItem.value !== name)});
+    }
+    
+    
+    
+    addContraindicationComment(contraindication , comment){
 
+        this.setState({contraIndication : this.state.contraIndications.map(item => {
+            if(item.value === contraindication){
+                item.comment = comment;
+            }
+            return item;
+        })});
+    }
+    addIndicationComment(indication , comment){
 
-
+        this.setState({indication : this.state.indications.map(item => {
+            if(item.value === indication){
+                item.comment = comment;
+            }
+            return item;
+        })});
+    }
+    addRelativecontraComment(relativecontra , comment){
+        this.setState({relativeContra : this.state.relativeContra.map(item => {
+            if(item.value === relativecontra){
+                item.comment = comment;
+            }
+            return item;
+        })});
+    }
+    addDruginteractionComment(interaction , comment){
+        this.setState({drugInteraction : this.state.drugInteraction.map(item => {
+            if(item.value === interaction){
+                item.comment = comment;
+            }
+            return item;
+        })});
+    }
+    addMednameComment(name , comment){
+        this.setState({medNames : this.state.medNames.map(item => {
+            if(item.value === name){
+                item.comment = comment;
+            }
+            return item;
+        })});
     }
 
 
-
-
-
-    OnNameChange(event){
-        const userInput = event.target.value;
-
-        axios.get("http://localhost:5000/suggest_meds/med/" + userInput.toLowerCase())
-        .then(data => {
-            this.setState({
-                nameSuggestions : data.data,
-            });
-            
-        })
-        .catch(err => console.log(err));
-
-        this.setState({
-            NameactiveSuggestion : 0,
-            nameShowSuggestions : true,
-            medname : userInput
-        });
-
+    onChangeDose(value, index){
+        this.setState({doses : this.state.doses.map((dsg, ind) => {
+            if(ind === index)
+                return value;
+            return dsg;
+        })});
+        console.log(this.state.doses);
+    }
+    onChangeDist(value, index){
+        this.setState({day_dist : this.state.day_dist.map((dis, ind) => {
+            if(ind === index)
+                return value;
+            return dis;
+        })});
+        console.log(this.state.day_dist);
     }
 
-
-    onNameKeyDown (e) {
-        let keynumber = e.keyCode;
-        if(this.state.nameSuggestions.length <= 0){
-            if(keynumber === 13){
-            this.setState({
-                nameShowSuggestions : false,
-                nameSuggestions : []
-            })
-
-            this.dosageRef.current.focus();
-            }
-            return;
-        }
-       
-        if(keynumber === 13){
-            // User has pressed enter
-           
-            let selected_name =this.state.nameSuggestions[this.state.NameactiveSuggestion]; 
-            this.setState({
-                medname : selected_name,
-                nameSuggestions : [],
-                nameShowSuggestions : false
-            });
-            
-            this.dosageRef.current.focus();
-            scrollToComponent(this.dosageRef.current);
-        }
-
-        else if(keynumber === 38){
-            // User has pressed up arrow
-            if(this.state.NameactiveSuggestion === 0){
-                return;
-            }
-            this.setState({
-                NameactiveSuggestion : this.state.NameactiveSuggestion - 1
-            })
-        }
-
-        else if(keynumber === 40){
-            // User has pressed down key
-           
-            if(this.state.NameactiveSuggestion === this.state.nameSuggestions.length - 1){
-                return;
-            }
-            this.setState({
-                NameactiveSuggestion : this.state.NameactiveSuggestion + 1
-            })
-
-        }
-
-    };
-
+   
 
 
 
@@ -158,29 +142,35 @@ export default class Medname extends React.Component{
     render(){
         return(
             <>
-            <div className = "medname_container">
-                <label className= "info_labels">Medname</label>
-                <br/>
-                <input className = "medname_input" type = "text" value = {this.state.medname} onChange = {this.OnNameChange} onKeyDown = {this.onNameKeyDown} onBlur = {() => {this.setState({nameShowSuggestions:false})}}/>
-                {(this.state.nameShowSuggestions) && 
-                      <RenderList names = {this.state.nameSuggestions} activeindex = {this.state.NameactiveSuggestion} />
-                
-                }
-
-            </div>
+             <QuoraTemplate
+                containerClass = "medname_container"
+                labelClass = "info_labels"
+                inputClass = "indication_input"
+                label = "Mednames"
+                listClass = "quora_items_container"
+                listeleClass = "info_indication_list_ele"
+                crossClass = "quora_cross"
+                plusClass = "quora_plus"
+                addItem = {this.addMedname}
+                removeItem = {this.removeMedname}
+                itemsArray = {this.state.medNames}
+                showSuggestions = {true}
+                suggestionListClass = "info_indication_suggestions"
+                suggestioneleClass = "info_indication_suggestions_ele"
+                suggestionActiveClass =  "info_indication_active"
+                suggestionUrl = "http://localhost:5000/suggest/meds/"
+                addComment = {this.addMednameComment}
+            />
             
-            <div className = "dose_container">
-                <label className = "info_labels">Dosage (general in mg/Kg/Day)</label>
-                <br/>
-                <input className = "dose_input" type = "number" ref = {this.dosageRef}/>
-            </div>
+           <Dosage  onChangeDose = {this.onChangeDose}
+                    onChangeDist = {this.onChangeDist} ref = {this.dosageRef}/>
 
             <QuoraTemplate
                 containerClass = "indication_container"
                 labelClass = "info_labels"
                 inputClass = "indication_input"
                 label = "Indications"
-                listClass = "info_indication_list"
+                listClass = "quora_items_container"
                 listeleClass = "info_indication_list_ele"
                 crossClass = "quora_cross"
                 plusClass = "quora_plus"
@@ -191,7 +181,8 @@ export default class Medname extends React.Component{
                 suggestionListClass = "info_indication_suggestions"
                 suggestioneleClass = "info_indication_suggestions_ele"
                 suggestionActiveClass =  "info_indication_active"
-                suggestionUrl = "http://localhost:5000/suggest_meds/med/"
+                suggestionUrl = "http://localhost:5000/suggest/meds/"
+                addComment = {this.addIndicationComment}
             />
 
 
@@ -199,14 +190,56 @@ export default class Medname extends React.Component{
                 labelClass = "info_labels"
                 inputClass = "contraindication_input"
                 label = "Contra-indications"
-                listClass = "info_contraindication_list"
+                listClass = "quora_items_container"
                 listeleClass = "info_contraindication_list_ele"
                 crossClass = "quora_cross"
                 plusClass = "quora_plus"
                 addItem = {this.addContraindication}
-                itemsArray = {this.state.contraIndication}
+                itemsArray = {this.state.contraIndications}
                 removeItem = {this.removeContraindication}
+                addComment = {this.addContraindicationComment}
                 />
+
+
+            <QuoraTemplate
+                containerClass = "relativecontra_container"
+                labelClass = "info_labels"
+                inputClass = "indication_input"
+                label = "Relative-Contraindications"
+                listClass = "quora_items_container"
+                listeleClass = "info_indication_list_ele"
+                crossClass = "quora_cross"
+                plusClass = "quora_plus"
+                addItem = {this.addRelativecontra}
+                removeItem = {this.removeRelativecontra}
+                itemsArray = {this.state.relativeContra}
+                showSuggestions = {true}
+                suggestionListClass = "info_indication_suggestions"
+                suggestioneleClass = "info_indication_suggestions_ele"
+                suggestionActiveClass =  "info_indication_active"
+                suggestionUrl = "http://localhost:5000/suggest/meds/"
+                addComment = {this.addRelativecontraComment}
+            />
+
+            <QuoraTemplate
+                containerClass = "interaction_container"
+                labelClass = "info_labels"
+                inputClass = "indication_input"
+                label = "Drug interactions"
+                listClass = "quora_items_container"
+                listeleClass = "info_indication_list_ele"
+                crossClass = "quora_cross"
+                plusClass = "quora_plus"
+                addItem = {this.addDruginteraction}
+                removeItem = {this.removeDruginteraction}
+                itemsArray = {this.state.drugInteraction}
+                showSuggestions = {true}
+                suggestionListClass = "info_indication_suggestions"
+                suggestioneleClass = "info_indication_suggestions_ele"
+                suggestionActiveClass =  "info_indication_active"
+                suggestionUrl = "http://localhost:5000/suggest/meds/"
+                addComment = {this.addDruginteractionComment}
+            />
 
         </>
 

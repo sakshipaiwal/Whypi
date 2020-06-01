@@ -1,6 +1,6 @@
 import React from 'react';
-import './info.css'
-import AutoSuggest from "./Autosuggest";
+import './info.css';
+import AutoSuggest from './Autosuggest';
 import axios from 'axios';
 
 /*
@@ -27,10 +27,10 @@ import axios from 'axios';
 */
 
 
-class RenderCommentBox extends React.Component{
-    constructor(props){
+class RenderCommentBox extends React.Component {
+    constructor(props) {
         super(props);
-        this.state = {currentComment : ""};
+        this.state = {currentComment: '' };
         this.onChange = this.onChange.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
     }
@@ -44,7 +44,7 @@ class RenderCommentBox extends React.Component{
 
         if(keyCode === 13){
             // User wants to submit comment
-            this.props.onSubmitComment(this.props.item ,this.state.currentComment);
+            this.props.onSubmitComment(this.props.currentItem ,this.state.currentComment);
         }
 
 
@@ -72,6 +72,19 @@ class RenderCommentBox extends React.Component{
 
 
 class RenderList extends React.Component{
+    /*
+        props are 
+        1) items : it is an array of objects , each object has [value : "something", comment : "something"]
+        2) onPressPlus 
+        3) deleteItem
+        4) plusClass
+        5) listeleClass 
+        6) crossclass
+
+        basically renders a list of items in the quora style preferably in a flex type container. 
+        
+
+    */
 
     render(){
         return(
@@ -79,8 +92,8 @@ class RenderList extends React.Component{
             {this.props.items.map(item => {
                 return(
                 
-                <li className = {this.props.listeleClass} key = {item} >
-                        <span className = {this.props.plusClass} onClick = {() => this.props.onPressPlus(item)}>+</span> {item} <span className = {this.props.crossClass} onClick = {() => this.props.deleteItem(item)}>x</span>
+                <li className = {this.props.listeleClass} key = {item.value} >
+                        <span className = {this.props.plusClass} onClick = {() => this.props.onPressPlus(item.value)}>+</span> {item.value} <span className = {this.props.crossClass} onClick = {() => this.props.deleteItem(item.value)}>x</span>
                 </li>
                 )
 
@@ -116,11 +129,12 @@ export default class Quoratemplate extends React.Component{
     onChange(event){
         /// Only use server if suggestionUrl has been provided
         const userInput = event.target.value;
+        console.log(userInput);
         if(userInput.length > 0 &&  this.props.suggestionUrl){
             axios.get(this.props.suggestionUrl + userInput.toLowerCase())
             .then(data => {
                 this.setState({
-                    suggestions : data.data,
+                    suggestions : data.data["results"],
                 });
                 
             })
@@ -144,8 +158,9 @@ export default class Quoratemplate extends React.Component{
 
     }
     onSubmitComment(item , comment){
-        // Need to enter the item and comment both here
+        this.props.addComment(item , comment);
         this.setState({showCommentBox: false});
+
 
 
 
@@ -156,8 +171,8 @@ export default class Quoratemplate extends React.Component{
     onKeyDown(e){
         // Have to handle up and down keys for selecting options as well
         let keynumber = e.keyCode;
-        console.log(this.state.activeIndex);
-        if(this.props.itemsArray.includes(this.state.currentItem.toLowerCase()) === true || this.state.currentItem.length === 0){
+        let exists = this.props.itemsArray.filter((item) => item.value === this.state.currentItem);
+        if(exists.length > 0 || this.state.currentItem.length === 0){
             return;
         }
 
@@ -210,9 +225,6 @@ export default class Quoratemplate extends React.Component{
 
         }
         
-      
-
-
     }
 
 
@@ -258,15 +270,7 @@ export default class Quoratemplate extends React.Component{
 
         )
 
-
-
-
-
     }
-
-
-
-
 
 
 }

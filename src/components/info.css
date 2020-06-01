@@ -23,40 +23,68 @@
     width: 600px;
     height: 200px;
     margin: auto;
-    background:#5f27cd ;
+    background:#292930;
     text-align: center;
     margin-bottom: 20px;
     border-radius: 10px;
     transition: all 1s;
 }
-.medname_container:focus-within{
+.medname_container:focus-within , .medname_container:hover{
   height: 400px;
   width: 700px;
 
 }
 
-
-.dose_container{
+.interaction_container{
   width: 600px;
-  height: 150px;
+  height: 200px;
   margin: auto;
-  background: #fcd02c;
-  background-size: cover;
+  background:#292930 ;
   text-align: center;
   margin-bottom: 20px;
   border-radius: 10px;
   transition: all 1s;
 }
+.interaction_container:focus-within , .interaction_container:hover{
+height: 400px;
+width: 700px;
+
+}
+
+
+
+.dose_container{
+  width: 600px;
+  height: 300px;
+  margin: auto;
+  background: #292930;
+  background-size: cover;
+  text-align: center;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  transition: all 1s;
+  display: grid;
+  grid-template-columns: auto;
+  padding-top: 10px;
+}
 .dose_container:focus-within, .dose_container:hover{
-  height: 200px;
+  height: 400px;
   width: 700px;
+}
+
+.mode_container{
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr;
+
+
+
 }
 
 .indication_container{
   width: 600px;
   height: 400px;
   margin: auto;
-  background: #3eb650;
+  background: #292930;
   background-size: cover;
   text-align: center;
   margin-bottom: 20px;
@@ -64,6 +92,22 @@
   transition: all 1s;
 }
 .indication_container:focus-within, .indication_container:hover{
+  height: 440px;
+  width: 700px;
+}
+
+.relativecontra_container{
+  width: 600px;
+  height: 400px;
+  margin: auto;
+  background: #292930;
+  background-size: cover;
+  text-align: center;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  transition: all 1s;
+}
+.relative_contra:focus-within, .relativecontra_container:hover{
   height: 440px;
   width: 700px;
 }
@@ -88,7 +132,7 @@
   width: 600px;
   height: 400px;
   margin: auto;
-  background: #e12b38;
+  background: #292930;
   background-size: cover;
   text-align: center;
   margin-bottom: 20px;
@@ -178,7 +222,7 @@
 
 
 
-.info_indication_list , .info_contraindication_list{
+.quora_items_container{
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
@@ -187,17 +231,16 @@
   margin-top: 50px;
 }
 
-.info_indication_list  li , .info_contraindication_list li{
+.quora_items_container li{
   background-color: #5f27cd;
   margin-left: 4px;
   width: max-content;
   border-radius: 10px;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 1%;
   font-weight: 700;
   padding-left: 10px;
   padding-right: 10px;
-
   color: white;
 
 
