@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './info.css';
 import scrollToComponent from 'react-scroll-to-component';
 import QuoraTemplate from './Quota_tomplate';
@@ -135,13 +135,18 @@ export default class Form extends React.Component{
     }
 
    
-
+    submit(){
+        if(this.state.medNames.length>0  && this.state.doses.length>0 && this.state.day_dist.length>0)
+        console.log(this.state);
+        else 
+        console.log("error");
+    }
 
 
 
     render(){
         return(
-            <>
+            <div className = "wrapper">
              <QuoraTemplate
                 containerClass = "medname_container"
                 labelClass = "info_labels"
@@ -241,7 +246,8 @@ export default class Form extends React.Component{
                 addComment = {this.addDruginteractionComment}
             />
 
-        </>
+        <button className="button" onClick={() => {this.submit()}}>SUBMIT</button>
+        </div>
 
 
         )

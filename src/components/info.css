@@ -11,6 +11,11 @@
 
 }
 
+.wrapper{
+  padding-top: 4em;
+  padding-bottom: 2em; 
+  margin-left:20%;
+}
 .info_labels {
     font-weight: 900;
     font-size: large;
@@ -256,5 +261,17 @@ width: 700px;
 
 
 }
-
+.button{
+  height: 40px;
+  width: 100px;
+  border-radius: 10px;
+  margin-left: 45%;
+  background-color: gray;
+}
+.button :focus,
+.button :hover{
+outline: none;
+border: none;
+box-sizing: border-box;
+}
 

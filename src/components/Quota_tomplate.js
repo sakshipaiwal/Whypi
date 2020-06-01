@@ -3,6 +3,8 @@ import './info.css';
 import AutoSuggest from './Autosuggest';
 import axios from 'axios';
 
+// https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
+
 /*
     This is a module used to render Quora tomplate (lol).
     Takes the following props 
@@ -129,7 +131,6 @@ export default class Quoratemplate extends React.Component{
     onChange(event){
         /// Only use server if suggestionUrl has been provided
         const userInput = event.target.value;
-        console.log(userInput);
         if(userInput.length > 0 &&  this.props.suggestionUrl){
             axios.get(this.props.suggestionUrl + userInput.toLowerCase())
             .then(data => {
@@ -176,6 +177,8 @@ export default class Quoratemplate extends React.Component{
             return;
         }
 
+
+        // handeling no suggestions case....
         if(this.state.suggestions.length === 0 ){
             if(keynumber === 13){
                 // User has pressed enter 
@@ -189,10 +192,18 @@ export default class Quoratemplate extends React.Component{
         }
 
 
+        // In case of Suggestions....
         if(keynumber === 13){
             // User has pressed enter 
-            if(this.state.activeIndex >= 0 && this.state.activeIndex < this.state.suggestions.length)
+            if(this.state.activeIndex >= 0 && this.state.activeIndex < this.state.suggestions.length){
+                // handeling duplicate values , just return if there is one
+                exists = this.props.itemsArray.filter((item) => item.value === this.state.suggestions[this.state.activeIndex]);
+                if(exists.length >= 1){
+                    return;
+                }
                 this.props.addItem(this.state.suggestions[this.state.activeIndex]);
+
+            }
             else
                 this.props.addItem(this.state.currentItem);
             this.setState({
