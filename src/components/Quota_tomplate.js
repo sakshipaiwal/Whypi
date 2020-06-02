@@ -122,12 +122,14 @@ export default class Quoratemplate extends React.Component{
         this.onKeyDown = this.onKeyDown.bind(this);
         this.onPressPlus = this.onPressPlus.bind(this);
         this.onSubmitComment = this.onSubmitComment.bind(this);
-        this.wrapperRef = React.createRef();
+        
+
     
     }
     componentDidMount() {
         // Adding event  listener for click, so collapse the suggestions bar....
         document.addEventListener('mousedown', this.handleClickOutside);
+        
     }
     componentWillUnmount() {
         document.removeEventListener('mousedown', this.handleClickOutside);
@@ -135,7 +137,7 @@ export default class Quoratemplate extends React.Component{
 
     handleClickOutside = e => {
         // If the click is outside the component , we want to collapse the suggestion bar
-        if(this.wrapperRef && !this.wrapperRef.current.contains(e.target)){
+        if(this.props.containerRef && !this.props.containerRef.current.contains(e.target)){
             this.setState({suggestions : [] , showSuggestions : false});
         }
     }
@@ -256,7 +258,7 @@ export default class Quoratemplate extends React.Component{
 
     render(){
         return (
-        <div className = {this.props.containerClass} ref = {this.wrapperRef} onClick = {this.handleClickOutside}>
+        <div className = {this.props.containerClass} ref = {this.props.containerRef} onClick = {this.handleClickOutside}>
             
             {this.state.showCommentBox === false && 
             <>

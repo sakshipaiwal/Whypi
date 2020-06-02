@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './info.css';
 import scrollToComponent from 'react-scroll-to-component';
 import QuoraTemplate from './Quota_tomplate';
 import Dosage from "./Dosage";
+import SideDrawer from './SideDrawer/SideDrawer';
 
 
 
@@ -13,6 +14,9 @@ export default class Form extends React.Component{
             indications : [] , contraIndications : [] , relativeContra : [] , doses : ["","","","",""] , day_dist : ["","","","",""],
             drugInteraction : [] ,
         };
+        // refs for scrolling .... ie each ref is attached to the containers of dosage , name , indications etc...
+        this.containerRefs = [React.createRef(),React.createRef(),React.createRef(),React.createRef(),React.createRef(),React.createRef()];
+        
 
         this.dosageRef = React.createRef();
         this.addMedname = this.addMedname.bind(this);
@@ -123,7 +127,6 @@ export default class Form extends React.Component{
                 return value;
             return dsg;
         })});
-        console.log(this.state.doses);
     }
     onChangeDist(value, index){
         this.setState({day_dist : this.state.day_dist.map((dis, ind) => {
@@ -131,7 +134,7 @@ export default class Form extends React.Component{
                 return value;
             return dis;
         })});
-        console.log(this.state.day_dist);
+
     }
 
    
@@ -146,6 +149,10 @@ export default class Form extends React.Component{
 
     render(){
         return(
+            <>
+            
+            <SideDrawer propRefs = {this.containerRefs.filter((ele) => true)}/>
+
             <div className = "wrapper">
              <QuoraTemplate
                 containerClass = "medname_container"
@@ -165,10 +172,13 @@ export default class Form extends React.Component{
                 suggestionActiveClass =  "info_indication_active"
                 suggestionUrl = "http://localhost:5000/suggest/meds/"
                 addComment = {this.addMednameComment}
+                containerRef = {this.containerRefs[0]}
             />
-            
            <Dosage  onChangeDose = {this.onChangeDose}
-                    onChangeDist = {this.onChangeDist} ref = {this.dosageRef}/>
+                    onChangeDist = {this.onChangeDist}
+                    containerRef = {this.containerRefs[1]}
+                    test = {"Hello"}    
+                    />
 
             <QuoraTemplate
                 containerClass = "indication_container"
@@ -188,6 +198,7 @@ export default class Form extends React.Component{
                 suggestionActiveClass =  "info_indication_active"
                 suggestionUrl = "http://localhost:5000/suggest/meds/"
                 addComment = {this.addIndicationComment}
+                containerRef = {this.containerRefs[2]}
             />
 
 
@@ -203,6 +214,7 @@ export default class Form extends React.Component{
                 itemsArray = {this.state.contraIndications}
                 removeItem = {this.removeContraindication}
                 addComment = {this.addContraindicationComment}
+                containerRef = {this.containerRefs[3]}
                 />
 
 
@@ -224,6 +236,7 @@ export default class Form extends React.Component{
                 suggestionActiveClass =  "info_indication_active"
                 suggestionUrl = "http://localhost:5000/suggest/meds/"
                 addComment = {this.addRelativecontraComment}
+                containerRef = {this.containerRefs[4]}
             />
 
             <QuoraTemplate
@@ -244,12 +257,13 @@ export default class Form extends React.Component{
                 suggestionActiveClass =  "info_indication_active"
                 suggestionUrl = "http://localhost:5000/suggest/meds/"
                 addComment = {this.addDruginteractionComment}
+                containerRef = {this.containerRefs[5]}
             />
 
         <button className="button" onClick={() => {this.submit()}}>SUBMIT</button>
         </div>
 
-
+        </>
         )
 
 

@@ -8,6 +8,7 @@
     width: 40%;
     max-width: 300px;
     z-index: 200;
+    overflow: auto;
 }
 
 .side-drawer ul{

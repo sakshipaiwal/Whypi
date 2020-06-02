@@ -31,13 +31,6 @@ class RenderList extends React.Component{
 
 
 export default class AutoSuggest extends React.Component{
-    constructor(props){
-        super(props);
-    }
-
-
-
-
     render(){
         return (
         <div className = {this.props.containerClass}>

@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Infopage from './components/info';
-import SideDrawer from "./components/SideDrawer/SideDrawer";
 import Toolbar from './components/Toolbar/Toolbar';
 
 
@@ -20,11 +19,10 @@ export default class App extends React.Component{
 //      <Route exact path = "/indications" render = {props => <Indication {...props} />}/>
 
       return (
-        <div className = "app_wrapper"> 
         
+        <div className = "app_wrapper">
+        <Toolbar />
         <Infopage {...this.props} />
-        <Toolbar/>
-        <SideDrawer/>
         
         </div>
         

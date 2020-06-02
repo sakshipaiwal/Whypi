@@ -10,6 +10,8 @@ class RenderMode extends React.Component{
         2) OnChangeDose
         3) modeName 
     */
+
+
     onChangeDose = (event) => {
         let dose = event.target.value;
         this.props.onChangeDose(dose, this.props.index);
@@ -21,7 +23,7 @@ class RenderMode extends React.Component{
 
     render(){
         return(
-            <div className = "mode_container">
+            <div className = "mode_container" >
                 <div className = "mode_name">
                     <label className = "info_labels">{this.props.modeName} </label>
                 </div>
@@ -53,7 +55,6 @@ export default class Dosage extends React.Component{
         // Each entry is in order injection ,tablet,capsule,liquid,syrup
         this.onChangeDose = this.onChangeDose.bind(this);
         this.onChangeDist = this.onChangeDist.bind(this);
-        this.dosageRef  = React.createRef();
     }
 
     onChangeDose(value, index){
@@ -88,7 +89,7 @@ export default class Dosage extends React.Component{
                                 /> );
         }
         return(
-            <div className = "dose_container" ref = {this.dosageRef}>
+            <div className = "dose_container" ref = {this.props.containerRef}>
                 
                 <div className = "mode_container">
                     <div>
