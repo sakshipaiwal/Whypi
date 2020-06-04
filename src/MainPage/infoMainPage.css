@@ -1,0 +1,30 @@
+.MainPage-wrapper{
+    
+}
+.Medname{
+    position: fixed;
+    top: 120px;
+    font-size: 125%;
+    left: 3em;
+}
+
+.add-medname{
+    position: fixed;
+    top: 120px;
+    right: 3em;
+    font-size: 125%;
+}
+
+.add-medname:hover{
+    color: orange;
+    cursor: pointer;
+}
+.thick-line{
+    position: fixed;
+    top: 160px;
+    left: 4em;
+    height: 5px;
+    width: 90%;
+    background-color: black;
+    border-radius: 40px;
+}

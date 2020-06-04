@@ -1,0 +1,17 @@
+.info-container{
+    position: fixed;
+    top: 200px;
+    left: 5em;
+}
+.type-container{
+    display: grid;
+    grid-template-columns: 200px 250px 200px 200px 200px 200px ;
+}
+.type-labels{
+    padding: 10px;
+   
+}
+.type-labels1{
+    padding: 10px;
+    font-weight: bold;
+}

@@ -39,6 +39,10 @@ export default class Form extends React.Component{
         this.onChangeDist = this.onChangeDist.bind(this);
     }
 
+    addSomething(){
+        console.log("yesssssss");
+    }
+
 
     addContraindication(contraIndication){
         this.setState({contraIndications : this.state.contraIndications.concat({value: contraIndication.toLowerCase() , comment : ""})});

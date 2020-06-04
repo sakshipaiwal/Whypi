@@ -6,7 +6,42 @@ export default class SideDrawer extends React.Component{
     constructor(props){
         super(props);
         this.onClick = this.onClick.bind(this);
-        this.state = {}
+        this.state = {
+            names: [
+                {name: "M"},
+                {name: "D"},
+                {name: "I"},
+                {name: "C"},
+                {name: "R-C"},
+                {name: "D-I"}
+            ]
+        }
+    }
+    testIn = () => {
+        this.setState({
+            names: [
+                {name: "Medical"},
+                {name: "Dosage"},
+                {name: "Indication"},
+                {name: "Contraindication"},
+                {name: "Relative Contraindications"},
+                {name: "Drug Interaction"}
+            ]
+        })
+    }
+
+    testOut = () => {
+        this.setState({
+            names: [
+                {name: "M"},
+                {name: "D"},
+                {name: "I"},
+                {name: "C"},
+                {name: "R-C"},
+                {name: "D-I"}
+            ]
+        })
+    
     }
     onClick(e, num){
         /// Cheking if the refs exists , cannt have the code break over this.....
@@ -21,14 +56,14 @@ export default class SideDrawer extends React.Component{
     
     render(){
         return(
-    <nav className="side-drawer">
+    <nav className="side-drawer" onMouseOver={this.testIn} onMouseOut={this.testOut}>
         <ul>
-            <li onClick = {(e) => this.onClick(e,0)}>Medname </li>
-            <li onClick = {(e) => this.onClick(e,1)} >Dosage </li>
-            <li onClick = {(e) => this.onClick(e,2)}>Indications</li>
-            <li onClick = {(e) => this.onClick(e,3)}>ContraIndication</li>
-            <li onClick = {(e) => this.onClick(e,4)}>Relative-ContraIndication</li>
-            <li onClick = {(e) => this.onClick(e,5)}>Drug-Interaction</li>
+            <li onClick = {(e) => this.onClick(e,0)}>{this.state.names[0].name} </li>
+            <li onClick = {(e) => this.onClick(e,1)} >{this.state.names[1].name}</li>
+            <li onClick = {(e) => this.onClick(e,2)}>{this.state.names[2].name}</li>
+            <li onClick = {(e) => this.onClick(e,3)}>{this.state.names[3].name}</li>
+            <li onClick = {(e) => this.onClick(e,4)}>{this.state.names[4].name}</li>
+            <li onClick = {(e) => this.onClick(e,5)}>{this.state.names[5].name}</li>
         </ul>
     </nav>
         )

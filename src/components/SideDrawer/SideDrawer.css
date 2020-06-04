@@ -5,12 +5,15 @@
     position:fixed;
     top: 60px;
     left: 0;
-    width: 40%;
-    max-width: 300px;
+    width: 10%;
+    
     z-index: 200;
     overflow: auto;
+    transition: all 1s;
 }
-
+.side-drawer:hover{
+    width: 20%;
+}
 .side-drawer ul{
     height: 100%;
     display: flex;
@@ -29,7 +32,8 @@
     font-size: larger;
 }
 
-.side-drawer a:hover,
-.side-drawer a:active{
+.side-drawer li:hover,
+.side-drawer li:active{
 color: orange;
+cursor: pointer;
 }
